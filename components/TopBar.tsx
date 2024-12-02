@@ -8,23 +8,30 @@ import {
   Search,
   Menu,
 } from "lucide-react";
+import { MobileSidebar } from "./MobileSidebar";
 
-interface TopBarProps {
+export const TopBar = ({
+  onToggleSidebar,
+}: {
   onToggleSidebar: () => void;
-}
-
-export const TopBar = ({ onToggleSidebar }: TopBarProps) => {
+}) => {
   return (
     <header className="bg-white h-16 px-6 flex items-center justify-between border-b sticky top-0 w-full z-10 shadow-sm">
       <div className="flex items-center flex-1 max-w-xl gap-4">
+        <MobileSidebar
+          isOpen={false}
+          onClose={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
         <button
+          className="p-1 hidden lg:block text-gray-500"
           onClick={onToggleSidebar}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          aria-label="Toggle sidebar"
+          aria-label="Toggle Sidebar"
         >
-          <Menu className="w-5 h-5 text-gray-600" />
+          ☰
         </button>
-        <div className="relative flex-1">
+        <div className="relative flex-1 ml-4 lg:ml-0">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="text"
@@ -35,9 +42,6 @@ export const TopBar = ({ onToggleSidebar }: TopBarProps) => {
       </div>
 
       <div className="flex items-center space-x-4">
-        <button className="p-2 hover:bg-gray-100 rounded-lg">
-          <Globe className="w-5 h-5 text-gray-600" />
-        </button>
         <button className="p-2 hover:bg-gray-100 rounded-lg">
           <Phone className="w-5 h-5 text-gray-600" />
         </button>

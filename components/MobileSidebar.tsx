@@ -4,20 +4,29 @@ import {
   Sheet,
   SheetContent,
   SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
-export const MobileSidebar = () => {
+interface MobileSidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
   return (
     <div className="lg:hidden">
       <Sheet>
         <SheetTrigger asChild>
-          <button className="fixed top-4 left-4 z-50 p-2 bg-gray-800 text-white rounded-md">
-            <Menu size={24} />
+          <button className="fixed top-3 left-4 z-50 p-2   text-gray-500 rounded-md">
+            ☰
           </button>
         </SheetTrigger>
         <SheetContent side="left" className="p-0 w-64">
+          <VisuallyHidden.Root>
+            <SheetTitle>Menu</SheetTitle>
+          </VisuallyHidden.Root>
           <SheetHeader>
             <h2 className="text-lg font-bold px-4 py-2">Menu</h2>
           </SheetHeader>
@@ -26,4 +35,4 @@ export const MobileSidebar = () => {
       </Sheet>
     </div>
   );
-};
+}

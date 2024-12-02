@@ -5,7 +5,7 @@ export const navigationData: NavigationSection[] = [
     title: 'Main',
     items: [
       { label: 'Dashboard', icon: 'layoutDashboard', href: '/dashboard' },
-      { label: 'Analytics', icon: 'barChart', href: '/analytics' },
+      { label: 'Products', icon: 'shoppingBag', href: '/dashboard/products' },
     ],
   },
   {

@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar } from "@/components/Sidebar";
 import { TopBar } from "@/components/TopBar";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { MobileSidebar } from "@/components/MobileSidebar";
 
 export default function DashboardLayout({
   children,
@@ -10,54 +10,52 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
-  const breadcrumbItems = [
-    { label: "Dashboard", href: "/" },
-    { label: "Analytics", href: "/analytics" },
-  ];
+  const handleToggleSidebar = () => {
+    if (window.innerWidth >= 1024) {
+      // Desktop behavior: toggle sidebar collapse
+      setIsSidebarCollapsed(!isSidebarCollapsed);
+    } else {
+      // Mobile behavior: toggle mobile sidebar sheet
+      setIsMobileSidebarOpen(!isMobileSidebarOpen);
+    }
+  };
+
+  useEffect(() => {
+    // Close the mobile sidebar if the window is resized to desktop size
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMobileSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <div className=" h-screen bg-gray-50">
-      {/* Sidebar */}
-      <Sidebar isCollapsed={isSidebarCollapsed} />
+    <div className="h-screen bg-gray-50">
+      {/* Mobile Sidebar */}
+      <MobileSidebar
+        isOpen={isMobileSidebarOpen}
+        onClose={() => setIsMobileSidebarOpen(false)}
+      />
+
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block">
+        <Sidebar isCollapsed={isSidebarCollapsed} />
+      </div>
 
       {/* Main Content Area */}
       <div
         className={`flex-1 flex flex-col transition-all duration-300 ${
-          isSidebarCollapsed ? "ml-16" : "ml-64"
+          isSidebarCollapsed ? "lg:ml-16" : "lg:ml-64"
         }`}
       >
-        {/* Main Content */}
+        <TopBar onToggleSidebar={handleToggleSidebar} />
         <main className="flex-1 overflow-x-hidden overflow-y-auto">
-          {/* TopBar */}
-          <TopBar
-            onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          />
-          <div className="max-w-7xl mx-auto px-6 py-8">
-            <div className="mb-8">
-              <Breadcrumbs items={breadcrumbItems} />
-              <h1 className="text-2xl font-semibold text-gray-900 mt-4">
-                Dashboard
-              </h1>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow"
-                >
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    Dashboard Card {i}
-                  </h3>
-                  <p className="text-gray-500">
-                    This is a placeholder for dashboard content. Real data and
-                    charts would go here.
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <div className="max-w-7xl mx-auto px-6 py-8">{children}</div>
         </main>
       </div>
     </div>

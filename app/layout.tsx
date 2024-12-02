@@ -18,6 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
+      <head>
+        <script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          type="text/javascript"
+        />
+      </head>
       <body className="bg-[#F9FAFB]">
         <main className="">{children}</main>
       </body>
