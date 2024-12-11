@@ -5,21 +5,17 @@ import {cookies, headers} from "next/headers";
 import {redirect} from "next/navigation";
 
 export const signIn = async (formData: FormData) => {
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+    const supabase = createClient();
 
     const { data: session, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: formData.get('email') as string,
+        password: formData.get('password') as string,
     });
 
     if (error) {
         return redirect('/login?message=Could not authenticate user');
     }
 
-    // Check if session exists before redirecting
     if (session) {
         return redirect('/dashboard');
     }
@@ -28,15 +24,12 @@ export const signIn = async (formData: FormData) => {
 };
 
 export const signUp = async (formData: FormData) => {
-    const origin = headers().get('origin')
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+    const origin = (await headers()).get('origin')
+    const supabase = createClient()
 
     const { error } = await supabase.auth.signUp({
-        email,
-        password,
+        email: formData.get('email') as string,
+        password: formData.get('password') as string,
         options: {
             emailRedirectTo: `${origin}/auth/callback`,
         },
@@ -50,10 +43,9 @@ export const signUp = async (formData: FormData) => {
 }
 
 export const signInWithEmail = async (formData: FormData) => {
-    const origin = headers().get('origin')
+    const origin = (await headers()).get('origin')
     const email = formData.get('email') as string
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+    const supabase = createClient()
 
     const { error } = await supabase.auth.signInWithOtp({
         email,
@@ -70,9 +62,8 @@ export const signInWithEmail = async (formData: FormData) => {
 }
 
 export const signInWithGoogle = async () => {
-    const origin = headers().get('origin')
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+    const origin = (await headers()).get('origin')
+    const supabase = createClient()
 
     const { data: { url }, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
@@ -88,9 +79,8 @@ export const signInWithGoogle = async () => {
 }
 
 export const signInWithGithub = async () => {
-    const origin = headers().get('origin')
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+    const origin = (await headers()).get('origin')
+    const supabase = createClient()
 
     const { data: { url }, error } = await supabase.auth.signInWithOAuth({
         provider: "github",
@@ -107,9 +97,8 @@ export const signInWithGithub = async () => {
 }
 
 export const signInWithDiscord = async () => {
-    const origin = headers().get('origin')
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+    const origin = (await headers()).get('origin')
+    const supabase = createClient()
 
     const { data: { url }, error } = await supabase.auth.signInWithOAuth({
         provider: "discord",

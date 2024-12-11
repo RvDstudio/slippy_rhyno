@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest) {
   // If there's no session and the user is trying to access a protected route
   if (!session && req.nextUrl.pathname.startsWith('/dashboard')) {
     const redirectUrl = req.nextUrl.clone();
-    redirectUrl.pathname = '/auth/login';
+    redirectUrl.pathname = '/login';
     redirectUrl.searchParams.set('redirectedFrom', req.nextUrl.pathname);
     return NextResponse.redirect(redirectUrl);
   }

@@ -81,7 +81,7 @@ export default function ProductsPage() {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
-      <div className="flex flex-col sm:gap-4 pt-6">
+      <div className="flex flex-col sm:gap-4 pt-4">
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Tabs defaultValue="all">
             <div className="flex items-center">
@@ -208,7 +208,9 @@ export default function ProductsPage() {
                               {product.product_name}
                             </TableCell>
                             <TableCell>
-                              <Badge variant="outline">{product.status}</Badge>
+                              <Badge className="bg-[#0F495E] text-white">
+                                {product.status}
+                              </Badge>
                             </TableCell>
                             <TableCell className="hidden md:table-cell">
                               ${product.price.toFixed(2)}

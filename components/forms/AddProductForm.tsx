@@ -137,7 +137,7 @@ export default function AddProductForm({ onSuccess }: AddProductFormProps) {
               <FormLabel className="text-[#111D36]">Product name</FormLabel>
               <FormControl>
                 <Input
-                  className="bg-gray-100 text-[#0F495E]"
+                  className="bg-gray-100 text-[#0F495E] focus-visible:ring-1"
                   placeholder="product name"
                   {...field}
                 />
@@ -173,7 +173,7 @@ export default function AddProductForm({ onSuccess }: AddProductFormProps) {
               </FormLabel>
               <FormControl>
                 <Input
-                  className="bg-gray-100 text-[#0F495E]"
+                  className="bg-gray-100 text-[#0F495E] focus-visible:ring-1"
                   placeholder="short description"
                   {...field}
                 />
@@ -192,7 +192,7 @@ export default function AddProductForm({ onSuccess }: AddProductFormProps) {
                 <FormControl>
                   <Input
                     type="number"
-                    className="bg-gray-100 text-[#0F495E]"
+                    className="bg-gray-100 text-[#0F495E] focus-visible:ring-1"
                     placeholder="quantity"
                     {...field}
                   />
@@ -211,7 +211,7 @@ export default function AddProductForm({ onSuccess }: AddProductFormProps) {
                   <Input
                     type="number"
                     step="0.01"
-                    className="bg-gray-100 text-[#0F495E]"
+                    className="bg-gray-100 text-[#0F495E] focus-visible:ring-1"
                     placeholder="price"
                     {...field}
                   />
@@ -234,7 +234,7 @@ export default function AddProductForm({ onSuccess }: AddProductFormProps) {
                     type="file"
                     accept="image/*"
                     onChange={handleImageUpload}
-                    className="h-10 px-4 py-2 bg-gray-100 hover:bg-gray-200 transition-colors text-[#0F495E]"
+                    className="h-10 px-4 py-2 bg-gray-100 hover:bg-gray-200 transition-colors text-[#0F495E] focus-visible:ring-1"
                   />
                   {uploadedImage && (
                     <div className="relative w-40 h-40">
