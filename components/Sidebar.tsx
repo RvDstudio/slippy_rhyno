@@ -15,7 +15,7 @@ export const Sidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
           <Icon name="command" className="w-6 h-6 text-white" />
           {!isCollapsed && (
             <span className="text-2xl font-bold text-white ml-3">
-              Slippy<span className="font-extralight">Rhyno</span>
+              Ecom<span className="font-extralight">Rhyno</span>
             </span>
           )}
         </div>
